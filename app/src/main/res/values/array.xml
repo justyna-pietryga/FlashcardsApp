@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="listArray1">
+        <item>1 język -> 2 język</item>
+        <item>2 język -> 1 język</item>
+    </string-array>
+
+    <string-array name="listValues1">
+        <item>@string/listArray1_value1</item>
+        <item>@string/listArray1_value2</item>
+    </string-array>
+
+    <string-array name="listArray2">
+        <item>Kolejno</item>
+        <item>Losowo</item>
+    </string-array>
+
+    <string-array name="listValues2">
+        <item>@string/listArray2_value1</item>
+        <item>@string/listArray2_value2</item>
+    </string-array>
+</resources>

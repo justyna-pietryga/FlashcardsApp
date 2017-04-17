@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Flashcards</string>
+    <string name="select_category">Wybierz folder z utworzonych</string>
+    <string name="create_new_category_radioButton">Utwórz nowy folder z fiszkami</string>
+    <string name="create_new_category_hint">Podaj nazwę kategorii</string>
+    <string name="selecting_category_prompt">Wybierz interesującą pozycję</string>
+    <string name="start_button">Przejdź</string>
+    <string name="delete_button">Usuń folder</string>
+    <string name="delete_folder_alert_title">Usuwanie folderu</string>
+    <string name="delete_folder_alert_message_part1">Czy na pewno chcesz usunąć folder \"</string>
+    <string name="delete_folder_alert_message_part2"> \" razem z całą jego zawartością?</string>
+    <string name="add_first_hint">Pierwszy język</string>
+    <string name="add_second_hint">Drugi język</string>
+    <string name="add_word_button">Dodaj słowo</string>
+    <string name="hide_adding_button">Schowaj edytor</string>
+    <string name="edit_category_button">Edytuj nazwę folderu</string>
+    <string name="toast_null_category">Nazwa folderu nie może być pusta</string>
+    <string name="toast_name_exists">Nazwa folderu już istnieje</string>
+    <string name="edit_word_text_button">Edit</string>
+    <string name="delete_word_text_button">Usuń</string>
+    <string name="return_text_button">Cofnij</string>
+    <string name="delete_word_alert_title">Usuwanie słowa</string>
+    <string name="delete_word_alert_message">Czy na pewno chcesz usunąć to słowo?"</string>
+
+    <string name="open_as_flashcards_text_button">Przeglądaj fiszki</string>
+    <string name="invert_words_text_button">Odwróć fiszkę</string>
+    <string name="next_word_text_button">Następne słowo</string>
+
+    <string name="preference_settings_1_option_title">Kolejność języków</string>
+    <string name="preference_settings_2_option_title">Sposób wyświetlania fiszek</string>
+    <string name="preference_settings_1_option_summary">Wybierz, który język ma być wyświetlany jako pierwszy</string>
+    <string name="preference_settings_2_option_summary">Wybierz sposób wyświetlania fiszek</string>
+    <string name="listArray1_value1">Najpierw pierwszy język</string>
+    <string name="listArray1_value2">Najpierw drugi język</string>
+    <string name="listArray2_value1">Kolejno</string>
+    <string name="listArray2_value2">Losowo</string>
+
+</resources>

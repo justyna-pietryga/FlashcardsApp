@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.justyna.flashcards.MainActivity">
+
+    <ImageButton
+        android:layout_width="250dp"
+        android:layout_height="150dp"
+        android:id="@+id/logoSet_imageButton"
+        android:background="@drawable/logo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/start_button"
+        android:id="@+id/start_button"
+        android:layout_below="@id/createCategory_editText"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+
+        />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:id="@+id/main_radioGroup"
+        android:layout_below="@+id/logoSet_imageButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_category"
+            android:id="@+id/selectCategory_radioButton"
+            android:checked="true"
+            android:textSize="15sp" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:id="@+id/categorySelecting_spinner"
+            android:spinnerMode="dialog" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="35dp"
+                android:text="@string/edit_category_button"
+                android:textSize="10sp"
+                android:id="@+id/editCategory_button" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="invisible"
+                android:textSize="10sp"
+                android:id="@+id/not_existing_button" />
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="35dp"
+                android:text="@string/delete_button"
+                android:textSize="10sp"
+                android:id="@+id/delete_button" />
+
+        </LinearLayout>
+
+
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="@string/create_new_category_radioButton"
+            android:id="@+id/createCategory_radioButton"
+            android:textSize="15sp"
+            android:checked="false" />
+
+
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:minWidth="100dp"
+            android:visibility="invisible"
+            android:text="Reset kategorii"
+            android:textSize="10sp"
+            android:background="@drawable/button_selector"
+            android:layout_marginBottom="0dp"
+            android:id="@+id/tmpTest_button"
+            android:layout_gravity="right" />
+
+    </RadioGroup>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/createCategory_editText"
+        android:visibility="invisible"
+        android:hint="@string/create_new_category_hint"
+        android:layout_below="@+id/main_radioGroup"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>
