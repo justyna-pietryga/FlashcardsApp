@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/refreshFlashcards"
+        android:title="Refresh"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_refresh_white"/>
+
+    <item android:id="@+id/preferences"
+          android:title="Settings"
+          app:showAsAction="ifRoom"
+          android:icon="@drawable/ic_settings_white"
+        />
+
+</menu>
