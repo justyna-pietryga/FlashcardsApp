@@ -23,8 +23,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import databasemanager.Flash2DatabaseOpenHelper;
-import databasemanager.FlashDatabaseOpenHelper;
+import com.example.justyna.flashcards.databasemanager.CategoryDAO;
+import com.example.justyna.flashcards.databasemanager.VocabularyDAO;
 
 
 public class VocabularyListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -33,27 +33,28 @@ public class VocabularyListActivity extends AppCompatActivity implements Adapter
     RowAdapter adapter;
     public  VocabularyListActivity CustomListView = null;
     public  ArrayList<RowBean> CustomListViewValuesArr = new ArrayList<RowBean>();
+    private VocabularyDAO vocabularyDAO;
+    private CategoryDAO categoryDAO;
 
-//    SharedPreferences shared=getSharedPreferences("FlashcardsPreferences",0);
+
     public static final String TAG = "debuggingVocabulary";
     private static int showOrHideButton=0;
     private static String categoryFromMainStaticToAddingNewWordInAlert;
+    private static int categoryIdFromMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vocabulary_list);
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        vocabularyDAO=new VocabularyDAO(this);
+        categoryDAO= new CategoryDAO(this);
         loadContent();
     }
 
     private void loadContent(){
 
-       /* final Button newWordButton = (Button)findViewById(R.id.addWord_button); //////////////
-        final Button acceptedWord = (Button) findViewById(R.id.acceptNewWord_button);
-        final EditText firstEditText = (EditText) findViewById(R.id.first_editText);
-        final EditText secondEditText = (EditText) findViewById(R.id.second_editText); */ /////////////////
+
         TextView categoryTextView = (TextView) findViewById(R.id.category_textView);
         final ImageButton editWord = (ImageButton) findViewById(R.id.editWord_button);
         final ImageButton deleteWord = (ImageButton) findViewById(R.id.deleteWord_button);
@@ -61,20 +62,18 @@ public class VocabularyListActivity extends AppCompatActivity implements Adapter
         Button openAsFlashcards = (Button) findViewById(R.id.openAsFlashcards_button);
 
         final SharedPreferences shared = getSharedPreferences("FlashcardsPreferences", 0);
-        int categoryIdFromMain = shared.getInt("WhichIdFolder", 1);
+        categoryIdFromMain = shared.getInt("WhichIdFolder", 1);
 
-       final FlashDatabaseOpenHelper db = new FlashDatabaseOpenHelper(this);
-       final Category categoryFromMain=db.getFolder(categoryIdFromMain);
+
+        final Category categoryFromMain=categoryDAO.getFolder(categoryIdFromMain);
+
         categoryFromMainStaticToAddingNewWordInAlert = categoryFromMain.getName();
        Log.d(TAG, "Vocabulary for "+categoryFromMain.getName());
 
         categoryTextView.setText("Kategoria: "+categoryFromMain.getName());
 
-        final Flash2DatabaseOpenHelper db2 = new Flash2DatabaseOpenHelper(VocabularyListActivity.this);
 
-        //db2.deleteAllWords();
-
-        List<Vocabulary> vocabularyFromData = db2.getAllVocabulary(categoryFromMain.getName());
+        List<Vocabulary>vocabularyFromData = vocabularyDAO.getAllVocabulary(categoryIdFromMain);
 
         Log.d(TAG, "getAllVocabularies" );
 
@@ -96,51 +95,6 @@ public class VocabularyListActivity extends AppCompatActivity implements Adapter
         list.setOnItemClickListener(VocabularyListActivity.this);
 
 
-
-        /*newWordButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(showOrHideButton%2==0) {
-                    firstEditText.setVisibility(View.VISIBLE);
-                    secondEditText.setVisibility(View.VISIBLE);
-                    acceptedWord.setVisibility(View.VISIBLE);
-                    editWord.setVisibility(View.INVISIBLE);
-                    deleteWord.setVisibility(View.INVISIBLE);
-                    returnButton.setVisibility(View.INVISIBLE);
-
-                    newWordButton.setText(R.string.hide_adding_button);
-
-                    acceptedWord.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            final Vocabulary newWord = new Vocabulary(categoryFromMain.getName(),
-                                    firstEditText.getText().toString(), secondEditText.getText().toString());
-
-                            db2.addWord(newWord);
-                            Log.d(TAG, "addWord to Database");
-
-                            Intent refresh = new Intent(VocabularyListActivity.this, VocabularyListActivity.class);
-                            startActivity(refresh);
-                            finish();
-                        }
-                    });
-                }
-
-                else if(showOrHideButton%2!=0){
-                    newWordButton.setText(R.string.add_word_button);
-
-                    firstEditText.setVisibility(View.INVISIBLE);
-                    secondEditText.setVisibility(View.INVISIBLE);
-                    acceptedWord.setVisibility(View.INVISIBLE);
-                }
-
-                showOrHideButton++;
-            }
-        });
-
-        */
-
-
         //edit and delete
 
         editWord.setOnClickListener(new View.OnClickListener() {
@@ -153,7 +107,8 @@ public class VocabularyListActivity extends AppCompatActivity implements Adapter
                 final EditText edittext = new EditText(VocabularyListActivity.this);
                 final EditText edittext2 = new EditText(VocabularyListActivity.this);
                 int rowBeanIdInDatabase = shared.getInt("WhichRowBeanIdInDatabase", 0);
-                final Vocabulary vocabularyToDelete=db2.getVocabulary(rowBeanIdInDatabase);
+                final Vocabulary vocabularyToDelete=vocabularyDAO.getVocabulary(rowBeanIdInDatabase);
+
                 alert.setMessage("Podaj pierwsze słowo");
                 alert.setTitle("Edycja słowa");
 
@@ -181,9 +136,8 @@ public class VocabularyListActivity extends AppCompatActivity implements Adapter
                                         if (secondWord.equals("")|| firstWord.equals(""))
                                             Toast.makeText(VocabularyListActivity.this, "Uwaga! Jedno pole jest puste!", Toast.LENGTH_LONG).show();
                                         Intent refresh = new Intent(VocabularyListActivity.this, VocabularyListActivity.class);
-                                        Flash2DatabaseOpenHelper db2 = new Flash2DatabaseOpenHelper(VocabularyListActivity.this);
-                                        db2.editVocabulary(categoryFromMainStaticToAddingNewWordInAlert,
-                                                vocabularyToDelete, firstWord, secondWord);
+
+                                        vocabularyDAO.editVocabulary(vocabularyToDelete, firstWord,secondWord);
 
                                         startActivity(refresh);
                                         finish();
@@ -200,7 +154,7 @@ public class VocabularyListActivity extends AppCompatActivity implements Adapter
 
                 alert.setNegativeButton("ANULUJ", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        // what ever you want to do with No option.
+
                     }
                 });
 
@@ -220,8 +174,10 @@ public class VocabularyListActivity extends AppCompatActivity implements Adapter
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 int rowBeanIdInDatabase = shared.getInt("WhichRowBeanIdInDatabase", 0);
-                                Vocabulary vocabularyToDelete=db2.getVocabulary(rowBeanIdInDatabase);
-                                db2.deleteOneRow(vocabularyToDelete);
+
+
+                                Vocabulary vocabularyToDelete=vocabularyDAO.getVocabulary(rowBeanIdInDatabase);
+                                vocabularyDAO.deleteOneRow(vocabularyToDelete);
 
                                 Intent intent = new Intent(VocabularyListActivity.this, VocabularyListActivity.class);
                                 startActivity(intent);
@@ -247,8 +203,8 @@ public class VocabularyListActivity extends AppCompatActivity implements Adapter
             public void onClick(View view) {
                 Log.d(TAG, "przegladaj fiszki- przycisk");
 
-                Flash2DatabaseOpenHelper db2 = new Flash2DatabaseOpenHelper(VocabularyListActivity.this);
-                List<Vocabulary> list = db2.getAllVocabulary(categoryFromMain.getName());
+                List<Vocabulary> list = vocabularyDAO.getAllVocabulary(categoryFromMain.getId());
+
                 if(list.size()==0) Toast.makeText(VocabularyListActivity.this,"Brak słownictwa!", Toast.LENGTH_LONG).show();
 
                 else {
@@ -300,8 +256,7 @@ public class VocabularyListActivity extends AppCompatActivity implements Adapter
                                         else {
                                             if (secondWord.equals("")|| firstWord.equals(""))
                                                 Toast.makeText(VocabularyListActivity.this, "Uwaga! Jedno pole jest puste!", Toast.LENGTH_LONG).show();
-                                            Flash2DatabaseOpenHelper db2 = new Flash2DatabaseOpenHelper(VocabularyListActivity.this);
-                                            db2.addWord(new Vocabulary(categoryFromMainStaticToAddingNewWordInAlert, firstWord, secondWord));
+                                            vocabularyDAO.addWord(new Vocabulary(firstWord,secondWord, categoryIdFromMain));
                                             Intent refresh = new Intent(VocabularyListActivity.this, VocabularyListActivity.class);
                                             startActivity(refresh);
                                             finish();
@@ -316,7 +271,7 @@ public class VocabularyListActivity extends AppCompatActivity implements Adapter
 
                 alert.setNegativeButton("ANULUJ", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        // what ever you want to do with No option.
+
                     }
                 });
 
@@ -343,13 +298,6 @@ public class VocabularyListActivity extends AppCompatActivity implements Adapter
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-        //String item = adapter.getItem(position).toString();
-        /*Button addWordButton = (Button)findViewById(R.id.addWord_button); /////////////////////
-        final EditText firstEditText = (EditText) findViewById(R.id.first_editText);
-        final EditText secondEditText = (EditText) findViewById(R.id.second_editText);
-        final Button acceptedNewWord = (Button) findViewById(R.id.acceptNewWord_button);
-        firstEditText.setVisibility(View.INVISIBLE); secondEditText.setVisibility(View.INVISIBLE); acceptedNewWord.setVisibility(View.INVISIBLE);
-        addWordButton.setText(R.string.add_word_button);// */  ///////////////////////
 
         final ImageButton editWord = (ImageButton) findViewById(R.id.editWord_button);
         final ImageButton deleteWord = (ImageButton) findViewById(R.id.deleteWord_button);
@@ -357,7 +305,6 @@ public class VocabularyListActivity extends AppCompatActivity implements Adapter
         SharedPreferences shared=getSharedPreferences("FlashcardsPreferences",0);
 
         editWord.setVisibility(View.VISIBLE); deleteWord.setVisibility(View.VISIBLE); returnButton.setVisibility(View.VISIBLE);
-       // final Flash2DatabaseOpenHelper db2 = new Flash2DatabaseOpenHelper(VocabularyListActivity.this);
 
         RowBean rowBeanItem = checkTheRowBeanOnThePosition(CustomListViewValuesArr,position);
 

@@ -18,14 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import databasemanager.Flash2DatabaseOpenHelper;
-import databasemanager.FlashDatabaseOpenHelper;
+import com.example.justyna.flashcards.databasemanager.CategoryDAO;
+import com.example.justyna.flashcards.databasemanager.VocabularyDAO;
 
 public class FlashcardsActivity extends AppCompatActivity {
     private static int i=0;
     private static int j=0;
     public static final String TAG = "debuggingVocabulary";
     private static String language;
+    private VocabularyDAO vocabularyDAO;
+    private CategoryDAO categoryDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class FlashcardsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_flashcards);
       //  Log.d(TAG, "Flashcards");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        vocabularyDAO=new VocabularyDAO(this);
+        categoryDAO=new CategoryDAO(this);
         loadContent();
     }
 
@@ -45,11 +49,9 @@ public class FlashcardsActivity extends AppCompatActivity {
         final SharedPreferences shared = getSharedPreferences("FlashcardsPreferences", 0);
         int categoryIdFromMain = shared.getInt("WhichIdFolder", 1);
 
-        final FlashDatabaseOpenHelper db = new FlashDatabaseOpenHelper(this);
-        final Category categoryFromMain=db.getFolder(categoryIdFromMain);
+        Category categoryFromMain = categoryDAO.getFolder(categoryIdFromMain);
 
-        final Flash2DatabaseOpenHelper db2 = new Flash2DatabaseOpenHelper(FlashcardsActivity.this);
-        final List<Vocabulary> vocabularyFromData = db2.getAllVocabulary(categoryFromMain.getName());
+        final List<Vocabulary> vocabularyFromData = vocabularyDAO.getAllVocabulary(categoryIdFromMain);
 
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(FlashcardsActivity.this);
