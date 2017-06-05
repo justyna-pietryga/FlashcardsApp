@@ -3,9 +3,10 @@ package com.example.justyna.flashcards;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,17 +15,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.util.Log;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-import java.util.ArrayList;
+
 import java.util.List;
 
-import databasemanager.Flash2DatabaseOpenHelper;
-import databasemanager.FlashDatabaseOpenHelper;
+import com.example.justyna.flashcards.databasemanager.CategoryDAO;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "debugger";
@@ -32,11 +29,14 @@ public class MainActivity extends AppCompatActivity {
 
     private static int whichRadioButtonMain=R.id.selectCategory_radioButton;
     private static Category categoryFromSpinner;
+    private CategoryDAO categoryDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        categoryDAO= new CategoryDAO(this);
+
         loadContent();
     }
 
@@ -47,6 +47,16 @@ public class MainActivity extends AppCompatActivity {
         final Button deleteButton = (Button)findViewById(R.id.delete_button);
         final Button editButton = (Button) findViewById(R.id.editCategory_button);
         categoriesSpinner.setPrompt(getString(R.string.selecting_category_prompt));
+
+        List<Category> c = categoryDAO.getAllFolders();
+        if(c.size()==0){
+            deleteButton.setVisibility(View.INVISIBLE);
+            editButton.setVisibility(View.INVISIBLE);
+        }
+        else{
+            deleteButton.setVisibility(View.VISIBLE);
+            editButton.setVisibility(View.VISIBLE);
+        }
 
         //RadioGroup
        mainRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -64,8 +74,15 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.selectCategory_radioButton:
-                        deleteButton.setVisibility(View.VISIBLE);
-                        editButton.setVisibility(View.VISIBLE);
+                        List<Category> c = categoryDAO.getAllFolders();
+                        if(c.size()==0){
+                            deleteButton.setVisibility(View.INVISIBLE);
+                            editButton.setVisibility(View.INVISIBLE);
+                        }
+                        else{
+                            deleteButton.setVisibility(View.VISIBLE);
+                            editButton.setVisibility(View.VISIBLE);
+                        }
                         createcategoryEditText.setVisibility(View.INVISIBLE);
                         whichRadioButtonMain=i;
                         categoriesSpinner.setEnabled(true);
@@ -75,36 +92,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final FlashDatabaseOpenHelper db = new FlashDatabaseOpenHelper(MainActivity.this);
-               // db.deleteAllFolders(); //
 
-        Button tmpTestButton = (Button) findViewById(R.id.tmpTest_button);
-        tmpTestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                db.deleteAllFolders();
-                Intent refresh = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(refresh);
-                finish();
-            }
-        });
 
         // ArrayAdapter
-        final List<Category> categories = db.getAllFolders();
-//        Log.d(TAG, String.valueOf(categories.get(0).getId()));
 
-                //for(int i=0; i<categories.size(); i++) Log.d(TAG, "categories: "+categories.get(i).getName());
+        final List<Category> categories = categoryDAO.getAllFolders();
+
         final ArrayAdapter<Category> adapter = new ArrayAdapter<Category>(this, R.layout.simple_spinner, categories);
         categoriesSpinner.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-
-
-       /* final List<Category> listReloaded = new ArrayList<>();
-        for(int i=0; i<categories.size(); i++){
-            listReloaded.add(new Category(categories.get(i).getId(),categories.get(i).getName(), i));
-            Log.d(TAG, "listReloaded: "+ categories.get(i).getName());
-        }  */
 
         //spinner
         SharedPreferences shared=getSharedPreferences(SHARED_PREFERENCES,0); ////////////////////
@@ -112,7 +109,9 @@ public class MainActivity extends AppCompatActivity {
         categoriesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long position) {
-                categoryFromSpinner =db.getFolder(i+1);
+                List<Category> categoryList= categoryDAO.getAllFolders();
+                int id=categoryList.get(i).getId();
+                categoryFromSpinner=categoryDAO.getFolder(id);
                 //categoryFromSpinner = checkTheCategoryOnThePosition(listReloaded, i);
                 Log.d(TAG,"getFolder");
             }
@@ -136,7 +135,8 @@ public class MainActivity extends AppCompatActivity {
                     if(whichRadioButtonMain==R.id.createCategory_radioButton) {
                         whichRadioButtonMain=R.id.selectCategory_radioButton;
                         String newCategoryName = createcategoryEditText.getText().toString();
-                        List<Category> categories = db.getAllFolders();
+                        List<Category> categories = categoryDAO.getAllFolders();
+
                         Log.d(TAG, newCategoryName+"displayed");
                         if(newCategoryName.equals("")){
                             Toast.makeText(MainActivity.this, R.string.toast_null_category, Toast.LENGTH_LONG).show();
@@ -149,23 +149,22 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         else {
-                            FlashDatabaseOpenHelper flashDatabaseOpenHelper = new FlashDatabaseOpenHelper(MainActivity.this);
-                            //Category newCreatedCategory = new Category(newCategoryName,categories.size());   //
+
                             Category newCreatedCategory = new Category(newCategoryName);
-                            flashDatabaseOpenHelper.addFolder(newCreatedCategory);
+
+                            categoryDAO.addCateogry(newCreatedCategory);
+
                             Log.d(TAG, "adding to database");
 
-                            int sizeOfList = flashDatabaseOpenHelper.getAllFolders().size();
+                            List<Category> categoriesAfterNewCreate = categoryDAO.getAllFolders();
+                            int id= categoriesAfterNewCreate.get(categoriesAfterNewCreate.size()-1).getId();
 
                             Intent intent = new Intent(MainActivity.this, VocabularyListActivity.class);
                             Intent refresh = new Intent(MainActivity.this, MainActivity.class);
 
-                                //categories=db.getAllFolders(); //
-                                //Category lastCategory = checkTheCategoryOnThePosition(categories, categories.size()-1); //
-
                             SharedPreferences.Editor sharedEditor = shared.edit();
-                            sharedEditor.putInt("WhichIdFolder", sizeOfList).apply();
-                            //sharedEditor.putInt("WhichIdFolder", lastCategory.getId()).apply(); //
+                            sharedEditor.putInt("WhichIdFolder", id).apply();
+
                             sharedEditor.commit();
 
                             startActivity(refresh);
@@ -193,22 +192,9 @@ public class MainActivity extends AppCompatActivity {
                 else if(whichRadioButtonMain==R.id.editCategory_button){
                         whichRadioButtonMain=R.id.selectCategory_radioButton;
 
-                        Flash2DatabaseOpenHelper db2 = new Flash2DatabaseOpenHelper(MainActivity.this);
-                        List<Vocabulary> vocabularyList = new ArrayList<Vocabulary>();
-                        vocabularyList=db2.getAllVocabulary(categoryFromSpinner.getName());
+                        Category oldCategory=categoryDAO.getFolder(categoryFromSpinner.getId());
 
-                        db2.deleteWordsFromCategory(categoryFromSpinner.getName());
-                        for(int j=0; j<vocabularyList.size(); j++) {
-                            db2.addWord(new Vocabulary(createcategoryEditText.getText().toString(),
-                                    vocabularyList.get(j).getFirstLanguageWord(),
-                                    vocabularyList.get(j).getSecondLanguageWord()));
-                        }
-
-                        Category oldCategory=db.getFolder(categoryFromSpinner.getId());
-                       // db.deleteFolder(oldCategory);                                                 //
-                      //  db.addFolder(new Category(createcategoryEditText.getText().toString()));      //
-
-                        db.editFolder(oldCategory, createcategoryEditText.getText().toString());
+                        categoryDAO.editFolder(oldCategory, createcategoryEditText.getText().toString());
 
                         createcategoryEditText.setHint(R.string.create_new_category_hint);
                         createcategoryEditText.setVisibility(View.INVISIBLE);
@@ -235,10 +221,9 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                db.deleteFolder(categoryFromSpinner);
+                                categoryDAO.deleteFolder(categoryFromSpinner);
                                 Log.d(TAG,categoryFromSpinner.getName()+" deleted");
-                                Flash2DatabaseOpenHelper db2 = new Flash2DatabaseOpenHelper(MainActivity.this);
-                                db2.deleteWordsFromCategory(categoryFromSpinner.getName());
+
                                 Intent intent = new Intent(MainActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
@@ -253,47 +238,19 @@ public class MainActivity extends AppCompatActivity {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* if (editButton.getText()==getString(R.string.edit_category_button)) {
-                    whichRadioButtonMain = R.id.editCategory_button;
-
-                    createcategoryEditText.setVisibility(View.VISIBLE);
-                    createcategoryEditText.setHint("Podaj nową nazwę kategorii");
-                    editButton.setText(R.string.hide_adding_button);
-
-                }
-
-                else if(editButton.getText()==getString(R.string.hide_adding_button)){
-                    whichRadioButtonMain=R.id.selectCategory_radioButton;
-                    createcategoryEditText.setVisibility(View.INVISIBLE);
-                    createcategoryEditText.setHint(R.string.create_new_category_hint);
-                    editButton.setText(R.string.edit_category_button);
-                }
-                */
-                /////////////////////////////////////////////////////
-
-
                 AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
                 final EditText edittext = new EditText(MainActivity.this);
                 edittext.setText(categoryFromSpinner.getName());
                 alert.setMessage("Podaj nową nazwę folderu");
                 alert.setTitle("Edycja nazwy folderu");
                 alert.setView(edittext);
-                final Flash2DatabaseOpenHelper db2 = new Flash2DatabaseOpenHelper(MainActivity.this);
-                final List<Vocabulary> vocabularyList = db2.getAllVocabulary(categoryFromSpinner.getName());
 
                 alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         final String newName = edittext.getText().toString();
 
-                        db2.deleteWordsFromCategory(categoryFromSpinner.getName());
-                        for(int j = 0; j< vocabularyList.size(); j++) {
-                            db2.addWord(new Vocabulary(newName,
-                                    vocabularyList.get(j).getFirstLanguageWord(),
-                                    vocabularyList.get(j).getSecondLanguageWord()));
-                        }
-
-                        Category oldCategory=db.getFolder(categoryFromSpinner.getId());
-                        db.editFolder(oldCategory, newName);
+                        Category oldCategory=categoryDAO.getFolder(categoryFromSpinner.getId());
+                        categoryDAO.editFolder(oldCategory, newName);
 
                         SharedPreferences shared = getSharedPreferences(SHARED_PREFERENCES,0);
                         SharedPreferences.Editor sharedEditor = shared.edit();
@@ -359,30 +316,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-   /* @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop");
-       // SharedPreferences shared = getSharedPreferences(SHARED_PREFERENCES,0);
-       // SharedPreferences.Editor sharedEditor = shared.edit();
-        //sharedEditor.putInt("WhichIdFolder", 1).apply();
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-       // Log.d(TAG, "onDestroy");
-      //  SharedPreferences shared = getSharedPreferences(SHARED_PREFERENCES,0);
-      //  SharedPreferences.Editor sharedEditor = shared.edit();
-       // sharedEditor.putInt("WhichIdFolder", 1).apply();
-    }*/
-
-    /* public Category checkTheCategoryOnThePosition(List<Category> list, int position){
-        for(int i=0; i<list.size(); i++){
-            if(list.get(i).getIdPosition()==position) return list.get(i);
-        }
-        return null;
-    } */
 }

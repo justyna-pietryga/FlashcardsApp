@@ -5,6 +5,19 @@ public class Vocabulary {
     private String category;
     private String firstLanguageWord;
     private String secondLanguageWord;
+    private int categoryID;
+
+    public Vocabulary(int id, String firstLanguageWord, String secondLanguageWord) {
+        this.id = id;
+        this.firstLanguageWord = firstLanguageWord;
+        this.secondLanguageWord = secondLanguageWord;
+    }
+
+    public Vocabulary(String firstLanguageWord, String secondLanguageWord, int categoryID) {
+        this.firstLanguageWord = firstLanguageWord;
+        this.secondLanguageWord = secondLanguageWord;
+        this.categoryID = categoryID;
+    }
 
     public Vocabulary(int id, String category, String firstLanguageWord, String secondLanguageWord) {
         this.id = id;
@@ -15,6 +28,11 @@ public class Vocabulary {
 
     public Vocabulary (String category, String firstLanguageWord, String secondLanguageWord) {
         this.category=category;
+        this.firstLanguageWord = firstLanguageWord;
+        this.secondLanguageWord = secondLanguageWord;
+    }
+
+    public Vocabulary(String firstLanguageWord, String secondLanguageWord) {
         this.firstLanguageWord = firstLanguageWord;
         this.secondLanguageWord = secondLanguageWord;
     }
@@ -54,10 +72,18 @@ public class Vocabulary {
         this.secondLanguageWord = secondLanguageWord;
     }
 
+    public int getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
+
     @Override
     public String toString() {
         return this.getClass().getName()+"[Id="+getId()+
                 ", First language word="+getFirstLanguageWord()+
-                ", Second Language Word="+getSecondLanguageWord()+"]";
+                ", Second Language Word="+getSecondLanguageWord()+", CategoryID="+getCategoryID()+"]";
     }
 }
