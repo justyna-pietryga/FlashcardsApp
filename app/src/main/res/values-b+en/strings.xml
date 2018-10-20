@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Flashcards</string>
+    <string name="select_category">Choose the folder from created</string>
+    <string name="create_new_category_radioButton">Create new folder</string>
+    <string name="create_new_category_hint">Put the category name</string>
+    <string name="selecting_category_prompt">Choose the category</string>
+    <string name="start_button">Next</string>
+    <string name="delete_button">Delete a directory</string>
+    <string name="delete_folder_alert_title">Deleting</string>
+    <string name="delete_folder_alert_message_part1">Are you sure about deleting \"</string>
+    <string name="delete_folder_alert_message_part2"> \" with all content?</string>
+    <string name="add_first_hint">First language</string>
+    <string name="add_second_hint">Second language</string>
+    <string name="add_word_button">Add a word</string>
+    <string name="hide_adding_button">Hide an editor</string>
+    <string name="edit_category_button">Edit a directory name</string>
+    <string name="toast_null_category">Name of directory cannot be empty</string>
+    <string name="toast_name_exists">This name of dir already exists</string>
+    <string name="edit_word_text_button">Edit</string>
+    <string name="delete_word_text_button">Delete</string>
+    <string name="return_text_button">Return</string>
+    <string name="delete_word_alert_title">Deleting a word</string>
+    <string name="delete_word_alert_message">Are you sure you want to delete a word</string>
+
+    <string name="open_as_flashcards_text_button">Show flashcards</string>
+    <string name="invert_words_text_button">Invert</string>
+    <string name="next_word_text_button">Next word</string>
+
+    <string name="preference_settings_1_option_title">Order of languages</string>
+    <string name="preference_settings_2_option_title">Way of displaying flashcards</string>
+    <string name="preference_settings_1_option_summary">Choose the language to display first</string>
+    <string name="preference_settings_2_option_summary">Choose the way of displaing flashcards</string>
+    <string name="first_language_option">First language firstly</string>
+    <string name="second_language_option">Second language firstly</string>
+    <string name="sequence_option">In sequence</string>
+    <string name="random_option">Randomly</string>
+</resources>

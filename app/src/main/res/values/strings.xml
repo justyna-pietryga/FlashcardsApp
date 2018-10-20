@@ -30,9 +30,9 @@
     <string name="preference_settings_2_option_title">Sposób wyświetlania fiszek</string>
     <string name="preference_settings_1_option_summary">Wybierz, który język ma być wyświetlany jako pierwszy</string>
     <string name="preference_settings_2_option_summary">Wybierz sposób wyświetlania fiszek</string>
-    <string name="listArray1_value1">Najpierw pierwszy język</string>
-    <string name="listArray1_value2">Najpierw drugi język</string>
-    <string name="listArray2_value1">Kolejno</string>
-    <string name="listArray2_value2">Losowo</string>
+    <string name="first_language_option">Najpierw pierwszy język</string>
+    <string name="second_language_option">Najpierw drugi język</string>
+    <string name="sequence_option">Kolejno</string>
+    <string name="random_option">Losowo</string>
 
 </resources>

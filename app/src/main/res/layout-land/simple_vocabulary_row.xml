@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:layout_width="195dp"
+        android:layout_width="330dp"
         android:layout_height="30dp"
 
         android:text=""
@@ -18,7 +18,7 @@
         android:layout_gravity="left|top" />
 
     <TextView
-        android:layout_width="195dp"
+        android:layout_width="330dp"
         android:layout_height="30dp"
         android:text=""
         android:background="@drawable/textview_selector"
