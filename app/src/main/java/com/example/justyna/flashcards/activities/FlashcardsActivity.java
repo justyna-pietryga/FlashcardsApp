@@ -1,4 +1,4 @@
-package com.example.justyna.flashcards;
+package com.example.justyna.flashcards.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,10 +18,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import com.example.justyna.flashcards.R;
+import com.example.justyna.flashcards.Vocabulary;
 import com.example.justyna.flashcards.databasemanager.VocabularyDAO;
 
-import static com.example.justyna.flashcards.FlashcardsActivity.FlashcardSide.BACK;
-import static com.example.justyna.flashcards.FlashcardsActivity.FlashcardSide.FRONT;
+import static com.example.justyna.flashcards.activities.FlashcardsActivity.FlashcardSide.BACK;
+import static com.example.justyna.flashcards.activities.FlashcardsActivity.FlashcardSide.FRONT;
 
 public class FlashcardsActivity extends AppCompatActivity {
     private static int flashcardIterator = 0;
@@ -221,7 +223,7 @@ public class FlashcardsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.preferences: {
                 Intent intent = new Intent();
-                intent.setClassName(this, "com.example.justyna.flashcards.SettingsActivity");
+                intent.setClassName(this, "com.example.justyna.flashcards.settings.SettingsActivity");
                 startActivity(intent);
                 return true;
             }

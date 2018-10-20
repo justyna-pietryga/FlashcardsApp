@@ -12,7 +12,7 @@
     <string name="delete_folder_alert_message_part2"> \" with all content?</string>
     <string name="add_first_hint">First language</string>
     <string name="add_second_hint">Second language</string>
-    <string name="add_word_button">Add a word</string>
+    <string name="add_word_button">Add the word</string>
     <string name="hide_adding_button">Hide an editor</string>
     <string name="edit_category_button">Edit a directory name</string>
     <string name="toast_null_category">Name of directory cannot be empty</string>
@@ -21,7 +21,7 @@
     <string name="delete_word_text_button">Delete</string>
     <string name="return_text_button">Return</string>
     <string name="delete_word_alert_title">Deleting a word</string>
-    <string name="delete_word_alert_message">Are you sure you want to delete a word</string>
+    <string name="delete_word_alert_message">Are you sure you want to delete the word</string>
 
     <string name="open_as_flashcards_text_button">Show flashcards</string>
     <string name="invert_words_text_button">Invert</string>
@@ -35,4 +35,17 @@
     <string name="second_language_option">Second language firstly</string>
     <string name="sequence_option">In sequence</string>
     <string name="random_option">Randomly</string>
+
+    <string name="refresh">Refresh</string>
+    <string name="settings">Ustawienia</string>
+    <string name="about_app">About App</string>
+    <string name="category">Category:</string>
+
+    <string name="setFirstWord">Put first word</string>
+    <string name="setSecondWord">Put second word</string>
+    <string name="editingWordTitle">Editing of the word</string>
+    <string name="addingWordTitle">Adding the word</string>
+    <string name="alert_both_field_empty">Both fields cannot be empty!</string>
+    <string name="alert_one_field_empty">One field is empty!</string>
+    <string name="no_vocabulary">No vocabulary was added</string>
 </resources>

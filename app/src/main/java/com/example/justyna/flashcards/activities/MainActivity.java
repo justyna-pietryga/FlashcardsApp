@@ -1,4 +1,4 @@
-package com.example.justyna.flashcards;
+package com.example.justyna.flashcards.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import com.example.justyna.flashcards.Category;
+import com.example.justyna.flashcards.R;
 import com.example.justyna.flashcards.databasemanager.CategoryDAO;
 
 public class MainActivity extends AppCompatActivity {

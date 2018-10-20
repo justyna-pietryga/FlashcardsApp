@@ -1,10 +1,12 @@
-package com.example.justyna.flashcards;
+package com.example.justyna.flashcards.settings;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+
+import com.example.justyna.flashcards.R;
 
 public class MyPreferenceFragment extends PreferenceFragment
         implements SharedPreferences.OnSharedPreferenceChangeListener{

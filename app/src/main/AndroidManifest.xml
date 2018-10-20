@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,22 +18,22 @@
             </intent-filter>
             </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
 
         </activity>
         <activity
-            android:name=".VocabularyListActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name=".activities.VocabularyListActivity"
+            android:parentActivityName=".activities.MainActivity" />
 
-        <activity android:name=".FlashcardsActivity"/>
+        <activity android:name=".activities.FlashcardsActivity"/>
 
         <activity android:name=".MyPreferenceActivity"
                   android:label="Preferences">
         </activity>
 
-        <activity android:name=".SettingsActivity"/>
+        <activity android:name=".settings.SettingsActivity"/>
 
 
 

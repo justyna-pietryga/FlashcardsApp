@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/refreshFlashcards"
-        android:title="Refresh"
+        android:title="@string/refresh"
         app:showAsAction="always"
         android:icon="@drawable/ic_refresh_white"/>
 
     <item android:id="@+id/preferences"
-          android:title="Settings"
+          android:title="@string/settings"
           app:showAsAction="ifRoom"
           android:icon="@drawable/ic_settings_white"
         />

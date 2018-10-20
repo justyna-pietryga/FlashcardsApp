@@ -2,6 +2,8 @@ package com.example.justyna.flashcards;
 
 import android.preference.PreferenceActivity;
 
+import com.example.justyna.flashcards.settings.MyPreferenceFragment;
+
 import java.util.List;
 
 public class MyPreferenceActivity extends PreferenceActivity {

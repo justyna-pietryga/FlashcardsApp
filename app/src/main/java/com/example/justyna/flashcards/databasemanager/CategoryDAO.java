@@ -11,8 +11,7 @@ import java.util.List;
 
 public class CategoryDAO extends FlashcardsDB_DAO {
 
-    private static final String WHERE_ID_EQUALS = DatabaseOpenHelper.ID_COLUMN
-            + " =?";
+    private static final String WHERE_ID_EQUALS = DatabaseOpenHelper.ID_COLUMN + " =?";
 
     public CategoryDAO(Context context) {
         super(context);
@@ -45,7 +44,6 @@ public class CategoryDAO extends FlashcardsDB_DAO {
     }
 
     public Category getFolder(int id) {
-
         Cursor cursor = database.query(DatabaseOpenHelper.CATEGORY_TABLE, new String[]{DatabaseOpenHelper.ID_COLUMN,
                         DatabaseOpenHelper.NAME_COLUMN}, DatabaseOpenHelper.ID_COLUMN + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
@@ -58,18 +56,16 @@ public class CategoryDAO extends FlashcardsDB_DAO {
         return category;
     }
 
-    public void editFolder(Category category, String newName){
+    public void editFolder(Category category, String newName) {
         ContentValues cv = new ContentValues();
-        cv.put(DatabaseOpenHelper.NAME_COLUMN,newName);
+        cv.put(DatabaseOpenHelper.NAME_COLUMN, newName);
 
-        database.update(DatabaseOpenHelper.CATEGORY_TABLE, cv, "ID = "+category.getId(), null);
+        database.update(DatabaseOpenHelper.CATEGORY_TABLE, cv, "ID = " + category.getId(), null);
     }
 
     public void deleteFolder(Category category) {
-
-        int id=category.getId();
-        database.execSQL("DELETE FROM " + DatabaseOpenHelper.CATEGORY_TABLE + " WHERE " + DatabaseOpenHelper.ID_COLUMN + "= "+id );
-
+        int id = category.getId();
+        database.execSQL("DELETE FROM " + DatabaseOpenHelper.CATEGORY_TABLE + " WHERE " + DatabaseOpenHelper.ID_COLUMN + "= " + id);
     }
 
 }

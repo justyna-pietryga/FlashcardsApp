@@ -35,4 +35,16 @@
     <string name="sequence_option">Kolejno</string>
     <string name="random_option">Losowo</string>
 
+    <string name="settings">Ustawienia</string>
+    <string name="refresh">Odśwież</string>
+    <string name="about_app">O Aplikacji</string>
+    <string name="category">Kategoria:</string>
+    <string name="setFirstWord">Podaj pierwsze słowo</string>
+    <string name="setSecondWord">Podaj pierwsze słowo</string>
+    <string name="editingWordTitle">Edycja słowa</string>
+    <string name="addingWordTitle">Tworzenie słowa</string>
+    <string name="alert_both_field_empty">Oba pola nie mogą być puste!</string>
+    <string name="alert_one_field_empty">Uwaga! Jedno pole jest puste!</string>
+    <string name="no_vocabulary">Brak słownictwa!</string>
+
 </resources>
