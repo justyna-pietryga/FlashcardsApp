@@ -48,4 +48,6 @@
     <string name="alert_both_field_empty">Both fields cannot be empty!</string>
     <string name="alert_one_field_empty">One field is empty!</string>
     <string name="no_vocabulary">No vocabulary was added</string>
+    <string name="set_folder_name">Put new name for the directory</string>
+    <string name="editing_folder_name">Editing name of directory</string>
 </resources>
