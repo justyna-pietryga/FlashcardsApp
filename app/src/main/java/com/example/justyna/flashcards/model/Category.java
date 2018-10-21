@@ -1,4 +1,4 @@
-package com.example.justyna.flashcards;
+package com.example.justyna.flashcards.model;
 
 public class Category {
     private int id=0;

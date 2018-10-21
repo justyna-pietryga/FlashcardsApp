@@ -105,27 +105,8 @@ public class RowAdapter extends BaseAdapter  {
 
             /******** Set Item Click Listner for LayoutInflater for each row *******/
 
-            //vi.setOnClickListener(new OnItemClickListener( position ));
         }
         return vi;
     }
-
-   /* private class OnItemClickListener implements View.OnClickListener {
-
-        private int mPosition;
-
-        OnItemClickListener(int position){
-            mPosition = position;
-        }
-
-        @Override
-        public void onClick(View view) {
-            VocabularyListActivity sct = (VocabularyListActivity) activity;
-            sct.onItemClick(mPosition);
-        }
-    } */
-
-
-
 
 }

@@ -5,7 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.example.justyna.flashcards.Vocabulary;
+import com.example.justyna.flashcards.model.Vocabulary;
 
 import java.util.ArrayList;
 import java.util.List;

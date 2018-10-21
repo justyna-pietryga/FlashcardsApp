@@ -48,5 +48,6 @@
     <string name="no_vocabulary">Brak słownictwa!</string>
     <string name="set_folder_name">Podaj nową nazwę folderu</string>
     <string name="editing_folder_name">Edycja nazwy folderu</string>
+    <string name="dictionary">Słownik</string>
 
 </resources>

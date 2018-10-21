@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import com.example.justyna.flashcards.Category;
+import com.example.justyna.flashcards.model.Category;
 import com.example.justyna.flashcards.R;
 import com.example.justyna.flashcards.databasemanager.CategoryDAO;
 
@@ -292,6 +292,12 @@ public class MainActivity extends AppCompatActivity {
                 alert.setIcon(R.mipmap.ic_launcher);
                 alert.setPositiveButton("OK", null);
                 alert.show();
+                return true;
+            }
+
+            case R.id.dictionary: {
+                Intent intent = new Intent(MainActivity.this, DictionaryActivity.class);
+                startActivity(intent);
                 return true;
             }
         }

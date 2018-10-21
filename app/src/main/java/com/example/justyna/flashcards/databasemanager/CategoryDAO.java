@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.example.justyna.flashcards.Category;
+import com.example.justyna.flashcards.model.Category;
 
 import java.util.ArrayList;
 import java.util.List;

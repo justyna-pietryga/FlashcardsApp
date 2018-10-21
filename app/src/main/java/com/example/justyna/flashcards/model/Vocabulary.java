@@ -1,4 +1,4 @@
-package com.example.justyna.flashcards;
+package com.example.justyna.flashcards.model;
 
 public class Vocabulary {
     private int id;

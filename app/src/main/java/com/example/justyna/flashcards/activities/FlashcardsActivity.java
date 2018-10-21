@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.example.justyna.flashcards.R;
-import com.example.justyna.flashcards.Vocabulary;
+import com.example.justyna.flashcards.model.Vocabulary;
 import com.example.justyna.flashcards.databasemanager.VocabularyDAO;
 
 import static com.example.justyna.flashcards.activities.FlashcardsActivity.FlashcardSide.BACK;

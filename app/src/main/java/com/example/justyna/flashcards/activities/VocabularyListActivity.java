@@ -23,11 +23,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.justyna.flashcards.Category;
+import com.example.justyna.flashcards.model.Category;
 import com.example.justyna.flashcards.R;
 import com.example.justyna.flashcards.RowAdapter;
 import com.example.justyna.flashcards.RowBean;
-import com.example.justyna.flashcards.Vocabulary;
+import com.example.justyna.flashcards.model.Vocabulary;
 import com.example.justyna.flashcards.databasemanager.CategoryDAO;
 import com.example.justyna.flashcards.databasemanager.VocabularyDAO;
 

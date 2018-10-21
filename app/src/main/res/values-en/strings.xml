@@ -50,4 +50,5 @@
     <string name="no_vocabulary">No vocabulary was added</string>
     <string name="set_folder_name">Put new name for the directory</string>
     <string name="editing_folder_name">Editing name of directory</string>
+    <string name="dictionary">Dictionary</string>
 </resources>
