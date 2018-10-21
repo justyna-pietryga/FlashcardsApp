@@ -51,4 +51,5 @@
     <string name="set_folder_name">Put new name for the directory</string>
     <string name="editing_folder_name">Editing name of directory</string>
     <string name="dictionary">Dictionary</string>
+    <string name="word_of_day">Word of a day</string>
 </resources>

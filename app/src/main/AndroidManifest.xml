@@ -22,16 +22,25 @@
         <activity
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme"></activity>
+            android:theme="@style/SplashTheme" />
         <activity
             android:name=".activities.VocabularyListActivity"
             android:parentActivityName=".activities.MainActivity" />
         <activity android:name=".activities.FlashcardsActivity" />
         <activity
             android:name=".settings.MyPreferenceActivity"
-            android:label="Preferences"></activity>
+            android:label="Preferences" />
         <activity android:name=".settings.SettingsActivity" />
-        <activity android:name=".activities.DictionaryActivity"></activity>
+        <activity android:name=".activities.DictionaryActivity" />
+        <receiver
+            android:name=".MyReceiver"
+            android:enabled="true"
+            android:exported="false" >
+        </receiver>
+        <service
+            android:name=".RemindWordService"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>

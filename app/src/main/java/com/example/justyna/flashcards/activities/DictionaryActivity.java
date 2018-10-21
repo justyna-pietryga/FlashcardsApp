@@ -34,7 +34,6 @@ import javax.net.ssl.HttpsURLConnection;
 public class DictionaryActivity extends AppCompatActivity {
 
     String sourceLanCode, destLanCode = "";
-    List<DictionaryResult> results;
     ListView resultsListView;
     ArrayAdapter<DictionaryResult> arrayAdapter;
 
@@ -62,7 +61,7 @@ public class DictionaryActivity extends AppCompatActivity {
         translateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(wordToTranslate.equals("")) {
+                if(wordToTranslate.getText().toString().equals("")) {
                     Toast.makeText(DictionaryActivity.this, "No word to translate", Toast.LENGTH_LONG).show();
                 }
                 else{

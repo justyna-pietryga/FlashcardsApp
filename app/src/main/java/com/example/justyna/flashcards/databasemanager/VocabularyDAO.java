@@ -44,7 +44,7 @@ public class VocabularyDAO extends FlashcardsDB_DAO {
         return vocabulary;
     }
 
-    public List<Vocabulary> getAllVocabulary(int category) {
+    public List<Vocabulary> getAllVocabularyByCategory(int category) {
         List<Vocabulary> vocabularyList = new ArrayList<Vocabulary>();
 
         String selectQuery = "SELECT "+"V."+DatabaseOpenHelper.ID_COLUMN+", "
@@ -67,6 +67,24 @@ public class VocabularyDAO extends FlashcardsDB_DAO {
         }
 
         return vocabularyList;
+    }
+
+    public Vocabulary getRandomVocabulary(){
+        String selectQuery = "SELECT "+DatabaseOpenHelper.ID_COLUMN+", "
+                +DatabaseOpenHelper.COLUMN_FIRST_WORD+", "
+                +DatabaseOpenHelper.COLUMN_SECOND_WORD
+                +" FROM "+ DatabaseOpenHelper.TABLE_VOCABULARY
+                +" order by random() limit 1";
+
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Vocabulary vocabulary = new Vocabulary(Integer.parseInt(cursor.getString(0)),
+                cursor.getString(1),cursor.getString(2));
+
+        return vocabulary;
     }
 
     public void editVocabulary(Vocabulary vocabulary, String newFirstWord, String newSecondName){

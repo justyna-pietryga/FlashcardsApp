@@ -93,7 +93,7 @@ public class VocabularyListActivity extends AppCompatActivity implements Adapter
         final ImageButton returnButton = (ImageButton) findViewById(R.id.return_button);
         Button openAsFlashcards = (Button) findViewById(R.id.openAsFlashcards_button);
         setUpAtStartAndSetCategoryText(categoryTextView);
-        List<Vocabulary> vocabularyFromData = vocabularyDAO.getAllVocabulary(categoryIdFromMain);
+        List<Vocabulary> vocabularyFromData = vocabularyDAO.getAllVocabularyByCategory(categoryIdFromMain);
 
         configureListView(vocabularyFromData);
 
@@ -123,7 +123,7 @@ public class VocabularyListActivity extends AppCompatActivity implements Adapter
         openAsFlashcards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<Vocabulary> list = vocabularyDAO.getAllVocabulary(categoryFromMain.getId());
+                List<Vocabulary> list = vocabularyDAO.getAllVocabularyByCategory(categoryFromMain.getId());
 
                 if (list.size() == 0)
                     Toast.makeText(VocabularyListActivity.this, R.string.no_vocabulary, Toast.LENGTH_LONG).show();

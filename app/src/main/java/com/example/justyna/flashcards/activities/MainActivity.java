@@ -1,5 +1,8 @@
 package com.example.justyna.flashcards.activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,6 +24,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import com.example.justyna.flashcards.MyReceiver;
 import com.example.justyna.flashcards.model.Category;
 import com.example.justyna.flashcards.R;
 import com.example.justyna.flashcards.databasemanager.CategoryDAO;
@@ -38,8 +42,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         categoryDAO = new CategoryDAO(this);
-
         loadContent();
+        setUpNotificationAlarm(1);
+    }
+
+    private void setUpNotificationAlarm(int minutes) {
+        int minute = 1000*60;
+        Intent notifyIntent = new Intent(this,MyReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast
+                (this, 0 , notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,  System.currentTimeMillis(),
+                minute * minutes, pendingIntent);
     }
 
     private void setVisibilityOfButton(Button deleteButton, Button editButton){

@@ -55,7 +55,7 @@ public class FlashcardsActivity extends AppCompatActivity {
         final String settingsDisplayType = sharedPref.getString("displayType", "");
         String settingsOrderType = sharedPref.getString("orderType", "");
 
-        final List<Vocabulary> vocabularyFromData = vocabularyDAO.getAllVocabulary(categoryIdFromMain);
+        final List<Vocabulary> vocabularyFromData = vocabularyDAO.getAllVocabularyByCategory(categoryIdFromMain);
         final Vocabulary[] wordsReloadedInRandom = reloadedTableInRandom(vocabularyFromData);
 
         setSettingTextOfAnOptionForFirstFlashcard(settingsDisplayType, settingsOrderType, flashcardWord, wordsReloadedInRandom, vocabularyFromData);
